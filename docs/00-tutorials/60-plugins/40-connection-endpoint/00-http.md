@@ -14,15 +14,12 @@ connectionEndpoints:
       # allow 'authData' parameter in POST requests, if disabled only token and OPEN auth is
       # possible
       allowAuthData: true
-      # enable the authentication endpoint for requesting tokens/userData.
-      # note: a custom authentication handler is required for token generation
-      enableAuthEndpoint: false
-      # path for authentication requests
-      authPath: /auth
       # path for POST requests
-      postPath: /
+      postPath: /api
       # path for GET requests
-      getPath: /
-      # maximum allowed size of an individual message in bytes
-      maxMessageSize: 1024
+      getPath: /api
+      # should the server log invalid auth data, defaults to false
+      logInvalidAuthData: false
+      # http request timeout in milliseconds, defaults to 20000
+      requestTimeout: 20000
 ```

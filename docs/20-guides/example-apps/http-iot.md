@@ -2,14 +2,7 @@
 title: IoT Light Sensor
 description: deepstream HTTP Internet of Things Light Sensor tutorial
 tags: [HTTP, IoT, Arduino, ESP8266, WiFi]
-navLabel: IoT Light Sensor
-contentNav: true
 ---
-
-<h1 style="border: 1px solid black; padding: 10px; border-radius: 2px; font-size: 25px; margin-top: 20px;">
-    Help needed to update and migrate to
-    <a style="font-size: 25px; color: #0FBBEC;" href="/guides">Guides Section</a>
-</h1>
 
 deepstream's HTTP API is perfect for low-frequency data updates in low-power
 environments where the cost of establishing and maintaining a WebSocket
@@ -21,7 +14,7 @@ a webpage. Additionally, red and green LEDs will show whether the update has
 been successful.
 
 I'd recommend being familiar with the basics of
-[Records](/tutorials/core/datasync/records/) before you start.
+[Records](../../tutorials/core/datasync/records/) before you start.
 
 Here's how it looks:
 
@@ -159,7 +152,7 @@ void loop() {
 ## Building a request
 
 We're going to be writing the light level into a
-[record](/tutorials/core/datasync/records/) each time it's read, so let's create a
+[record](../../tutorials/core/datasync/records/) each time it's read, so let's create a
 function called `updateRecord` that takes the level as an argument, and call it
 in `loop()`.
 

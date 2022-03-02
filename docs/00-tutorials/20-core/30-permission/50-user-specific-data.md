@@ -8,7 +8,7 @@ different users. Whether it's updates to a social feed, discounts for frequent
 buyers, a list of matches on a dating platform, or any other kind of private or at least user-specific information.
 
 Fortunately, all three of deepstream's core concepts - data-sync,
-publish-subscribe, and request-response - provide various means to achieve this. The trick? Combine user-specific record or event names with deepstream's permissioning language [Valve](/tutorials/core/permission/valve-introduction/).
+publish-subscribe, and request-response - provide various means to achieve this. The trick? Combine user-specific record or event names with deepstream's permissioning language [Valve](valve-introduction).
 
 ## User-Specific Records
 Providing private or user-specific records is as simple as including the username in the record name. If your social network has a profile for Lisa Miller, simply store the profile in a record called `profile/lisa-miller`:
@@ -31,27 +31,23 @@ How does this rule work? First we specify `profile/$username` as a pattern. When
 
 ## User-Specific RPCs
 
-Ok, so far, so simple. Let's look at a more advanced example including an HTTP
-authentication endpoint and a backend process that provides user-specific data
-as a response to remote procedure calls (RPCs). Say we're running an online
-pet-food shop and the more frequently a user orders, the higher a discount she
-gets. This means we need three things in our e-marketplace setup:
-
+Ok, so far, so simple. Let's look at a more advanced example including an HTTP authentication endpoint and a backend process that provides user-specific data
+as a response to remote procedure calls (RPCs). Say we're running an online pet-food shop and the more frequently a user orders, the higher a discount she gets. This means we need three things in our e-marketplace setup:
 - an authentication server that checks the credentials of the user trying to log in,
 - a backend process that has access to prices as well as user discounts and can provide a RPC to retrieve a price,
 - a way to make sure that the username the client provides when asking for the price is in fact their own.
 
 To summarize, our setup will look as follows:
 
-![RPC permission flow](rpc-diagram.png)
+![RPC permission flow](/img/tutorials/20-core/30-permission/rpc-diagram.png)
 
 Let's go through the various components step by step, shall we? First off, the client needs to log in. We'll use a very basic login form: username, password, and an button labeled "login" is all we need.
 
-![Login Form](login-form.png)
+![Login Form](/img/tutorials/20-core/30-permission/login-form.png)
 
 You can find this and all other files for this guide in the accompanying [Github repo](https://github.com/deepstreamIO/ds-demo-userspecific-data).
 
-Once the user hits "login", the client executes deepstream's [login](/docs/client-js/client/#login-authparams-callback-) method, providing the username and password as data.
+Once the user hits "login", the client executes deepstream's [login](../../../docs/client-js/client#login-authparams-callback) method, providing the username and password as data.
 
 ```javascript
 login() {
@@ -166,7 +162,7 @@ The rule above means that the provider can be sure to get a valid, authenticated
 ## User-Specific Events and Listening
 Ok, so what about user-specific "events", deepstream's publish-subscribe mechanism. Fundamentally, they work the same way as records: Make the username a part of the event name and use Valve to ensure that only the right user can subscribe to the right event.
 
-But does that mean that you have to constantly send out events for all users, whether they might be online or not? Fortunately not! Deepstream provides a concept called [listening](/docs/client-js/pubsub-client-event/#client-event-listen-pattern-callback-) that let's you spy on your clients record or event subscriptions and only provide data when it's actually needed.
+But does that mean that you have to constantly send out events for all users, whether they might be online or not? Fortunately not! Deepstream provides a concept called [listening](../../../docs/client-js/event#client-event-listen) that let's you spy on your clients record or event subscriptions and only provide data when it's actually needed.
 
 Let's look at a (somewhat nonsensical) example: For our guide we want users to be created with a series of event messages, e.g., 'Hey Lisa!', 'Ho Lisa!', 'Hey Lisa!', and so on.
 

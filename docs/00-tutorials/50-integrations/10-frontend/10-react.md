@@ -1,9 +1,9 @@
 ---
 title: React
-description: Learn how to use React with deepstream
-logoImage: react.png
 ---
-
+:::caution
+This tutorial has not been updated
+:::
 ![deepstream-react](/img/tutorials/50-integrations/deepstream-react.png)
 
 deepstream and react share the same belief: apps are best composed from reusable components, driven by state. What deepstream brings to react is the ability to store this state and sync it across connected clients.
@@ -27,7 +27,7 @@ deepstream-react binds a deepstream record to a react component's state. Here's 
 
 ![basic input with deepstream-react](/img/tutorials/50-integrations/basic-react-input.gif)
 
-Let's replicate the example above. First, you need a deepstream server running on port 6020. If you haven't used deepstream yet, quickly head over to the [getting started tutorial](/tutorials/guides/getting-started-quickstart/)...don't worry, I'll wait.
+Let's replicate the example above. First, you need a deepstream server running on port 6020. If you haven't used deepstream yet, quickly head over to the [getting started tutorial](../../getting-started/javascript)...don't worry, I'll wait.
 
 Once your server is running, it's time to create our react-app. Let's start by installing the deepstream javascript client and deepstream-react
 

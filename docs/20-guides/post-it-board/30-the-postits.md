@@ -28,11 +28,11 @@ updatePostitPosition('postit/uuid', {
 
 ## Creating a postit
 
-Now comes the fun part—getting all the cards to remain in sync across all connected devices. Let’s take a step back and first look at data-sync and how it is used. We’ll be using [records](/tutorials/core/datasync/records/) to represent each individual postit. A record is just a convenient way of storing and manipulating JSON with data-sync built in.
+Now comes the fun part—getting all the cards to remain in sync across all connected devices. Let’s take a step back and first look at data-sync and how it is used. We’ll be using [records](../../tutorials/core/datasync/records/) to represent each individual postit. A record is just a convenient way of storing and manipulating JSON with data-sync built in.
 
-Core concepts: 
+Core concepts:
 
-- A record has a unique identifier. You can create your own or use `getUid()` to generate one for you: 
+- A record has a unique identifier. You can create your own or use `getUid()` to generate one for you:
 
 ```javascript
 const recordName = client.getUid()
@@ -90,10 +90,10 @@ const createPostit = async (postitUid, initialData) => {
     }
 
     const postit = addPostit(
-        postitUid, 
-        record.get(), 
+        postitUid,
+        record.get(),
         // Callback whenever user does a keypress
-        newContent => record.set('content', newContent), 
+        newContent => record.set('content', newContent),
         // Callbac whenever the postit moves
         newPosition => record.set('position', newPosition)
     )

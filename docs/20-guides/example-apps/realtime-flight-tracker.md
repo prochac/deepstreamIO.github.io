@@ -4,11 +4,6 @@ description: Building a realtime flight tracker with deepstream
 tags: [flights, web, realtime, records]
 ---
 
-<h1 style="border: 1px solid black; padding: 10px; border-radius: 2px; font-size: 25px; margin-top: 20px;">
-    Help needed to update and migrate to
-    <a style="font-size: 25px; color: #0FBBEC;" href="/guides">Guides Section</a>
-</h1>
-
 This tutorial will take you through building a realtime flight tracking system with deepstream. We'll be building both a backend provider process that updates the records with the location of flights, and a web based front end that allows us to visualise these. If you'd like to dive straight into the code you can take a look at the GitHub [repository](https://github.com/deepstreamIO/dsh-demo-realtime-flight-tracker).
 
 ## Realtime updates via provider

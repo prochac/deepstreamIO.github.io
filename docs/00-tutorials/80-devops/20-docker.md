@@ -11,15 +11,13 @@ Docker provides an additional layer of abstraction and automation of operating-s
 
 As actions are performed on a Docker base image, union file system layers are created and documented in such a way that each layer fully describes how to recreate the action. This strategy enables Docker's lightweight images as only layer updates need to be propagated (as opposed to entire VMs).
 
-![Docker Logo](/img/tutorials/80-devops/docker.png)
-
 ### Why use Docker with deepstream?
 Docker provides a lightweight solution to spin up fully functioning deepstream environments. It encapsulates all necessary settings and reduces complexity for large scale microservice deployments.
 
 ### How to use Docker with deepstream?
 In this tutorial we'll install a standalone Docker image and create a container. The image contains deepstream's source code as well as everything else necessary to run deepstream from source.
 
-If you'd like a bit more than just a single deepstream node, head over to the [Docker Compose tutorial](../docker-compose/), describing how to set up multiple connected database, cache and search containers that act as the message and storage layer for deepstream.
+If you'd like a bit more than just a single deepstream node, head over to the [Docker Compose tutorial](docker-compose), describing how to set up multiple connected database, cache and search containers that act as the message and storage layer for deepstream.
 
 Let's start by installing the image from the DockerHub registry by running this command:
 

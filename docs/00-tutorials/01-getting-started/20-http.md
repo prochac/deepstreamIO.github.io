@@ -11,14 +11,14 @@ The first thing you'll need to access the HTTP API is your application's unique 
 
 ## Start the server
 
-Let's start by installing the server. Just pick the [right version for your operating system](/tutorials/install/linux/) and follow its steps. Once the server is installed, you can start it with:
+Let's start by installing the server. Just pick the [right version for your operating system](../install/linux) and follow its steps. Once the server is installed, you can start it with:
 
 ```bash
 deepstream start
 ```
 
 To see how it works in real-time we can set up a javascript WebSocket client. To get that setup,
-take a look at the [getting started with javascript](/tutorials/getting-started/javascript)
+take a look at the [getting started with javascript](javascript)
 tutorial.
 
 ## Events (publish-subscribe)
@@ -67,4 +67,4 @@ curl -X POST -H "Content-Type: application/json" -d '{
 }' "<YOUR HTTP URL>"
 ```
 
-For more information see [deepstream HTTP docs](/docs/client-http/v1/).
+For more information see [deepstream HTTP docs](../../docs/client-http/v1).

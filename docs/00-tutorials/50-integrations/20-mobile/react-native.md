@@ -1,18 +1,19 @@
 ---
 title: React Native
-description: Learn how to use React Native with deepstream
-logoImage: reactnative.png
 ---
+:::caution
+This tutorial has not been updated
+:::
 
 [React Native](https://facebook.github.io/react-native/) lets you build mobile apps using only JavaScript. It uses the same design as React, letting you compose a rich mobile UI from declarative components.
 
-Now that deepstream implements websockets, integrating it with your React Native app via the [JS connector](/docs/client-js/client/) has become a breeze. The following steps will take you through the process with a hello world-esque example ([skip to solution](#8-complete-)).
+Now that deepstream implements websockets, integrating it with your React Native app via the [JS connector](../../../docs/client-js/client) has become a breeze. The following steps will take you through the process with a hello world-esque example ([skip to solution](#8-complete-)).
 
 ![Using React Native](/img/tutorials/50-integrations/deepstream-react-native.gif)
 
 ## 1. Start the server
 
-Let's start by installing the server. Just pick the [right version for your operating system](/tutorials/install/linux/) and follow its steps. Once the server is installed, you can start it with:
+Let's start by installing the server. Just pick the [right version for your operating system](../../install/linux) and follow its steps. Once the server is installed, you can start it with:
 
 ```bash
 deepstream start
@@ -20,7 +21,7 @@ deepstream start
 
 ## 2. Set up the HTML side (optional)
 
-To try some quick tests between the React Native Simulator and a browser window, you can set up an HTML side following the [quickstart guide](/tutorials/getting-started/javascript/).
+To try some quick tests between the React Native Simulator and a browser window, you can set up an HTML side following the [quickstart guide](../../getting-started/javascript).
 
 ## 3. Initialize and run a new React Native application
 
@@ -104,7 +105,7 @@ import { DeepstreamClient } from '@deepstream/client';
 // ...
 ```
 
-Then setup the client and record like we saw in the [quickstart guide](/tutorials/getting-started/javascript/)
+Then setup the client and record like we saw in the [quickstart guide](../../getting-started/javascript)
 
 ```javascript
 constructor(props) {

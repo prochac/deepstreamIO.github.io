@@ -1,6 +1,5 @@
 ---
 title: Modelling relational data
-description: An overview of relational data concepts using Records
 tags: [relational, relational data, deepstream, records, sql]
 ---
 
@@ -71,7 +70,7 @@ detailsRec.whenReady((record) => {
 
 Another benefit of this is that it makes it super easy to permission different parts of the data set. Let's pretend that whenever we mouse-over a user we want to display their name and a bit of info about them. This way, we only need to fetch the `users/abc-123` `Record`.
 
-However the only person that should be able to look at a users card details is themselves. So we can permission the details `Records` in a way to enforce this using [Valve](/tutorials/guides/valve-simple). The rule to do this might look a bit as follows, all we're doing is enforcing that the only user who can read and write to a `details/` record is the user themself.
+However the only person that should be able to look at a users card details is themselves. So we can permission the details `Records` in a way to enforce this using [Valve](../../tutorials/core/permission/valve-simple). The rule to do this might look a bit as follows, all we're doing is enforcing that the only user who can read and write to a `details/` record is the user themself.
 
 ```yaml
 record:

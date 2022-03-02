@@ -4,11 +4,6 @@ description: Learn how to create a realtime comment feeds with authentication us
 tags: [Javascript, Vue, lists, records]
 ---
 
-<h1 style="border: 1px solid black; padding: 10px; border-radius: 2px; font-size: 25px; margin-top: 20px;">
-    Help needed to update and migrate to
-    <a style="font-size: 25px; color: #0FBBEC;" href="/guides">Guides Section</a>
-</h1>
-
 This walkthrough covers the fundamentals of what it takes to build a realtime comment feed application. Therefore, if you desire to add a feature like Facebook-style comments in your next app, then this is definitely what you need to read.
 
 This article is built with Vue and covers the following significant topics:
@@ -275,9 +270,9 @@ The `handleSubmit` method which the form invokes is where the user's signup jour
     >
     > I am only using localStorage for the purpose of this example. You must NEVER store user's email and password credentials in localStorage.
     >
-    >What you can do is have a server that [generates a token](/tutorials/guides/jwt-auth/) for you which you can store as a cookie.
+    >What you can do is have a server that [generates a token](../../tutorials/core/auth/jwt-auth) for you which you can store as a cookie.
     >
-    >deepstream allows you to use [webhook authentication](/tutorials/guides/http-webhook-auth) in achieving such flow.
+    >deepstream allows you to use [webhook authentication](../../tutorials/core/auth/http-webhook) in achieving such flow.
 
     An event is also emitted to tell the rest of our app that are interested in the new state change.
 

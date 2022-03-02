@@ -1,9 +1,9 @@
 ---
 title: Angular
-description: Learn how to use Angular with deepstream
-logoImage: angular.png
-wip: true
 ---
+:::caution
+This tutorial has not been updated
+:::
 
 The "new Angular" popularly known as "Angular", [though a bad name](https://toddmotto.com/please-stop-worrying-about-angular-3#real-versioning), is component architected and follows the W3C component standards thereby forcing us ( for a good reason ) to build apps as reusable UI components/widgets. This means you can't continue to build apps the exact same way you did while using Angular 1.x.
 
@@ -209,7 +209,7 @@ export class AppComponent implements OnInit{
 }
 ```
 
-The `addChat` method creates a [record](https://deepstream.io/tutorials/core/datasync/records/), sets a value to the record, clears the text property and updates the deepstream chat list with the record name.
+The `addChat` method creates a [record](https://deepstream.io/docs/tutorials/core/datasync/records/), sets a value to the record, clears the text property and updates the deepstream chat list with the record name.
 
 The markup for creating messages is quite simple:
 
@@ -224,7 +224,7 @@ The markup for creating messages is quite simple:
 We perform a two-way binding to the input with the `text` property as well as add a click event listener to the send button which calls `addChat` method.
 
 ## 6. Chat Listing
-The `chats` property, for now, is undefined and is supposed to be a [deepstream list](/tutorials/core/datasync/lists/) which will hold the collection of deepstream records.
+The `chats` property, for now, is undefined and is supposed to be a [deepstream list](/docs/tutorials/core/datasync/lists/) which will hold the collection of deepstream records.
 
 We can create this list when the component is ready, and subscribe to it as well so as to print the `chats` as they come in:
 

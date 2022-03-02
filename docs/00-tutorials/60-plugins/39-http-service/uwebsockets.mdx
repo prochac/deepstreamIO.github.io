@@ -1,0 +1,30 @@
+---
+title: UWS HTTP
+---
+import UwsHttpServerConfig from '../../../10-docs/10-server/_uws-http-server-config.mdx'
+
+UWS is enabled throughout all endpoints by setting the httpServer type to uws.
+
+Important:
+
+UWS does not work on alpine images and returns C++ error traces on failure. If you run into
+a bug please try it out with the default http server to see if it can be reproduced on both
+types.
+
+To enable SSL on uws, all you need to do is pass in the location to a key and cert.
+
+You can either do this using an explicit path:
+
+```yaml
+key: /location/to/ssl/key.pem
+```
+
+or relative to the config file (less likely on a production install):
+
+```yaml
+key: file(relative/to/config/ssl/key.pem)
+```
+
+### How to configure:
+
+<UwsHttpServerConfig/>

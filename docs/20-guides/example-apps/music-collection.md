@@ -4,11 +4,6 @@ description: Realtime state management in CRUD apps using deepstream events
 tags: [Events, Angular, Javascript, CRUD, Pub-Sub]
 ---
 
-<h1 style="border: 1px solid black; padding: 10px; border-radius: 2px; font-size: 25px; margin-top: 20px;">
-    Help needed to update and migrate to
-    <a style="font-size: 25px; color: #0FBBEC;" href="/guides">Guides Section</a>
-</h1>
-
 A common concern in component architecture is passing data around (mostly from parent to grandchildren, grandchildren to parent and among sibling components). The first thing that could come to mind is to use a Flux implementation, but sometimes this becomes an overkill. When that is the case, you could decide to opt for an event hub.
 
 Speaking of events, rather than a local event hub, you could employ deepstream event to not only manage state for you but provide this state to all connected clients in realtime.
@@ -408,4 +403,5 @@ deleteAlbum(id) {
 ## Final Notes
 
 - __Source and Example__: The examples presented here are truncated so as to emphasize more on the main point which is realtime CRUD eventing. The full code can be found on [GitHub](https://github.com/deepstreamIO/example-app-album-collection) and the live demo [here](https://deepstreamio.github.io/example-app-album-collection/dist/)
-- __More Options__: deepstream offers other strategies apart from [Events](/tutorials/core/pubsub/). Consider having a look at [Records](/tutorials/core/datasync/records/) or [RPCs](/tutorials/core/request-response/) to know what works best in your application
+
+- __More Options__: deepstream offers other strategies apart from [Events](../../tutorials/core/pubsub/events). Consider having a look at [Records](../../tutorials/core/datasync/records/) or [RPCs](../../tutorials/core/request-response/rpc) to know what works best in your application

@@ -4,7 +4,7 @@ description: Applying filters to a WebRTC video stream before transmitting it
 tags: [WebRTC, Canvas, getUserMedia, captureStream, filter, video manipulation]
 ---
 
-In the [previous tutorial](../webrtc-audio-video) we've discussed how to share unaltered audio and video streams between browsers - but in times of Snapchat, dog snout overlays and vintage effect filters this might not be enough. So in this tutorial we'll look into manipulating the video before sending.
+In the [previous tutorial](webrtc-audio-video) we've discussed how to share unaltered audio and video streams between browsers - but in times of Snapchat, dog snout overlays and vintage effect filters this might not be enough. So in this tutorial we'll look into manipulating the video before sending.
 
 ## How it works
 
@@ -97,7 +97,7 @@ At this point you should see two identical video-clips - one on a video tag, one
 ```
 
 ## 5. Turn the manipulated video data into a stream
-The only thing left at this point is to establish a [simple peer connection](/tutorials/webrtc//webrtc-datachannels/) and provide a video stream from our output canvas using its `.captureStream()` method.
+The only thing left at this point is to establish a [simple peer connection](webrtc-datachannels) and provide a video stream from our output canvas using its `.captureStream()` method.
 
 ```javascript
 const p2pConnection = new SimplePeer({
@@ -116,4 +116,4 @@ p2pConnection.on( 'stream', remoteStream => {
 });
 ```
 
-To summarize: mediastreams can not only be created from videos, but from a number of different resources such as audio elements, canvas or - as we'll see in [the next tutorial](../webrtc-screen-sharing) - the entire browser window.
+To summarize: mediastreams can not only be created from videos, but from a number of different resources such as audio elements, canvas or - as we'll see in [the next tutorial](webrtc-screen-sharing) - the entire browser window.

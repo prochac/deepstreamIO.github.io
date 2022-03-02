@@ -1,9 +1,6 @@
 ---
 title: Nginx
 description: Using Nginx as a reverse proxy and load balancer for Websocket traffic
-logoImage: nginx.png
-redirectFrom: [/tutorials/integrations/other-servers/http/, /tutorials/integrations/other-servers/nginx/]
-wip: true
 ---
 
 ## What is nginx?

@@ -1,12 +1,13 @@
 ---
 title: VueJS
-description: Learn how to add realtime features to your VueJS webapp and start using our realtime database in the browser.
-logoImage: vuejs.png
 tags: [JavaScript, VueJS, Vue, data-sync, pub-sub, request-response, RPCs]
-wip: true
 ---
+:::caution
+This tutorial has not been updated
+:::
 
-This getting started guide will walk you through integrating deepstream in Vue. You will also learn how to implement the three deepstream core concepts: [Records](/tutorials/core/datasync/records/), [Events](/tutorials/core/pubsub/) and [RPCs](/tutorials/core/request-response/).
+
+This getting started guide will walk you through integrating deepstream in Vue. You will also learn how to implement the three deepstream core concepts: [Records](../../../tutorials/core/datasync/records), [Events](../../../tutorials/core/pubsub/events) and [RPCs](../../../tutorials/core/request-response/rpc).
 
 deepstream provides a JavaScript library which helps interact with your deepstream server.
 
@@ -281,4 +282,4 @@ new Vue({
 ```
 
 ## Where to go next?
-To learn how to use deepstream with other frontend frameworks head over to the tutorial section. To learn how to use the JavaScript SDK with NodeJS rather than in a browser, head over to the [getting started with NodeJS tutorial](/tutorials/getting-started/node/).
+To learn how to use deepstream with other frontend frameworks head over to the tutorial section. To learn how to use the JavaScript SDK with NodeJS rather than in a browser, head over to the [getting started with NodeJS tutorial](../../getting-started/javascript).

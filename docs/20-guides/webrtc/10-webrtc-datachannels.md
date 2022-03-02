@@ -22,12 +22,12 @@ const p2pConnection = new SimplePeer({
 });
 ```
 
-In the [full mesh example](/tutorials/webrtc//webrtc-full-mesh/) well compare usernames `localUserName > remoteUserName` to achieve the same.
+In the [full mesh example](webrtc-full-mesh) well compare usernames `localUserName > remoteUserName` to achieve the same.
 
 ## Signaling
 As the connection is being established, both peers need to send information about themselves and how to reach them to each other - the previously mentioned Interactive Connectivity Establishment Process (or ICE for short).
 
-Simple peer makes this easy. Whenever our local peer wants to send a signal to the remote, it emits a `'signal'` event. Whenever we receive a signal we process it using our connection's `.signal()` method. The signals themselves are transmitted using [events, deepstreamHub's publish/subscribe mechanism](https://deepstreamhub.com/tutorials/guides/events/).
+Simple peer makes this easy. Whenever our local peer wants to send a signal to the remote, it emits a `'signal'` event. Whenever we receive a signal we process it using our connection's `.signal()` method. The signals themselves are transmitted using [events, deepstream's publish/subscribe mechanism](../../tutorials/core/pubsub/events).
 
 We establish a connection by calling
 
@@ -78,4 +78,4 @@ p2pConnection.on( 'data', data => {
 });
 ```
 
-Bottom line: Establishing a connection between two peers is easy enough - but once we move on to [many-to-many connectivity and rooms](../webrtc-full-mesh), things get a little more tricky.
+Bottom line: Establishing a connection between two peers is easy enough - but once we move on to [many-to-many connectivity and rooms](webrtc-full-mesh), things get a little more tricky.

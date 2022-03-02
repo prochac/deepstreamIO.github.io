@@ -1,6 +1,6 @@
 {
-  "name": "deepstream.io-website",
-  "version": "2.0.0",
+  "name": "deepstreamio.github.io",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -36,6 +36,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/deepstreamIO/deepstream.io-website"
+    "url": "https://github.com/deepstreamIO/deepstreamIO.github.io"
   }
 }

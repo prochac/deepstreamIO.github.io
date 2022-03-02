@@ -4,18 +4,13 @@ description: Create a web app that returns the location of those around you in R
 tags: [React, Rethinkdb, Geolocation, JavaScript, Google Maps]
 ---
 
-<h1 style="border: 1px solid black; padding: 10px; border-radius: 2px; font-size: 25px; margin-top: 20px;">
-    Help needed to update and migrate to
-    <a style="font-size: 25px; color: #0FBBEC;" href="/guides">Guides Section</a>
-</h1>
-
 ![Locate Your Friends](/img/tutorials/75-example-apps/locator.gif)
 
 One of the exciting things about deepstream is that it allows you to get geospatial updates in realtime. In this tutorial, we are going to make an app that shows the location of all members, who are logged in, who are within a one kilometer radius. We will be using RethinkDB in combination with deepstream to do our geospatial queries, and google maps to display our results.
 
 ## Connecting deepstream with Rethinkdb
 
-Deepstream.io already has a great tutorial up about using RethinkDB with deepstream. You can find out more on how to [integrate RethinkDB with deepstream](/tutorials/plugins/database/rethinkdb/) here. RethinkDB will store all the actual data when deepstream creates records, and deepstream will only pull the data from RethinkDB once it subscribes to that particular record.
+Deepstream.io already has a great tutorial up about using RethinkDB with deepstream. You can find out more on how to [integrate RethinkDB with deepstream](../../tutorials/plugins/database/rethinkdb) here. RethinkDB will store all the actual data when deepstream creates records, and deepstream will only pull the data from RethinkDB once it subscribes to that particular record.
 
 Another great reason for using RethinkDB for this project, is for its ability to do geospatial queries. Instead of having to access each record we create through deepstream, RethinkDB can first do a geospatial query with the coordinates that are stored, then deepstream can subscribe to a list of results that are populated by the query, and finally subscribe only to those records that we want from the database query. This will result in faster load times, since we won't have to subscribe and unsubscribe to every record that exists. Instead we'll only subscribe to the records we want.
 
@@ -115,7 +110,7 @@ onPositionUpdate( position ) {
 
 Now we are ready to find all the users who are within a kilometer radius of us, and who are logged in to the app. We will be using the listen method to pull our data out of this list we created, that contains our latitude and longitude.
 
-The listen method is called every time there is a change in record subscriptions. Once there are events to subscribe to and we accept the response, we can start publishing data that will be populated from our database. There is more information about this in the  [events turorial](/tutorials/core/active-data-providers/).
+The listen method is called every time there is a change in record subscriptions. Once there are events to subscribe to and we accept the response, we can start publishing data that will be populated from our database. There is more information about this in the  [events turorial](../../tutorials/concepts/active-data-providers).
 
 ```javascript
 //server side
@@ -283,4 +278,4 @@ _addMarker() {
 
 ## Where to go next
 
-Now that we've outlined how to make a simple app that shares user's locations with others, there are many ways to expand upon this and develop it into a useful application. For starters, it would be good to implement some sort of [user authentication](/docs/server/user-file/). You could also perform more complex geolocation queries based on user input. For example, maybe users can choose the radius that the database queries, or you could map out walking directions to a selected user. With the real-time geo-location structure in place, there are myriads of directions to now take this application.
+Now that we've outlined how to make a simple app that shares user's locations with others, there are many ways to expand upon this and develop it into a useful application. For starters, it would be good to implement some sort of [user authentication](../../tutorials/core/auth/file). You could also perform more complex geolocation queries based on user input. For example, maybe users can choose the radius that the database queries, or you could map out walking directions to a selected user. With the real-time geo-location structure in place, there are myriads of directions to now take this application.

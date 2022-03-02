@@ -1,7 +1,5 @@
 ---
 title: Getting started with JavaScript
-description: Learn how to start a server and connect a simple client
-logoImage: javascript.png
 ---
 
 Time to get started with deepstream. This tutorial takes you through the initial steps of starting a server and connecting to it from a simple webpage using the JS Client.
@@ -10,7 +8,7 @@ Time to get started with deepstream. This tutorial takes you through the initial
 
 ## Start the server
 
-Let's start by installing the server. Just pick the [right version for your operating system](/tutorials/install/linux/) and follow its steps. Once the server is installed, you can start it with:
+Let's start by installing the server. Just pick the [right version for your operating system](../install/linux) and follow its steps. Once the server is installed, you can start it with:
 
 ```bash
 ./deepstream start
@@ -75,4 +73,4 @@ record.subscribe('firstname', function(value) {
 
 Open the web page in two browser windows and type text into either of the text fields and the other browser window will reflect changes instantly.
 
-And that's it. There's of course a lot more to deepstream than that. If you'd like to learn more about records and what they can be used for, head over to the [record tutorial](/tutorials/core/datasync/records/). Or start reading about deepstream's [Request/Response](/tutorials/core/request-response/) or [Pub/Sub](/tutorials/core/pubsub/) features.
+And that's it. There's of course a lot more to deepstream than that. If you'd like to learn more about records and what they can be used for, head over to the [record tutorial](../core/datasync/records). Or start reading about deepstream's [Request/Response](../core/request-response/rpc) or [Pub/Sub](../core/pubsub/events) features.

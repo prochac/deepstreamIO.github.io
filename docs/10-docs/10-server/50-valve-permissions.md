@@ -3,6 +3,8 @@ title: Valve Permissions
 description: The API for Valve, deepstream's powerful permissioning mechanism
 ---
 
+The API for Valve, deepstream's powerful permissioning mechanism.
+
 ## Rule Types
 You can specify permission rules for the following interactions
 
@@ -83,7 +85,7 @@ rpc:
 ```
 
 ### action
-the original action that triggered this rule (e.g. UPDATE / PATCH / LISTEN ) etc. Useful for more finegrained/low-level permissions. You can find a list of all available actions [here](/docs/common/constants/)
+the original action that triggered this rule (e.g. UPDATE / PATCH / LISTEN ) etc. Useful for more finegrained/low-level permissions. You can find a list of all available actions [here](../common/constants)
 
 **Usage Example:** Only allow patch updates
 ```yaml

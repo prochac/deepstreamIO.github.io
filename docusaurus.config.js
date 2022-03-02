@@ -7,14 +7,16 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'DeepstreamIO',
-  tagline: 'The open realtime server',
-  url: 'https://your-docusaurus-test-site.com',
+  tagline: 'The open realtime server: fast and secure events, data-sync and rpc for mobile, web & iot',
+  url: 'https://deepstreamIO.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/eltons/elton-hive.svg',
   organizationName: 'deepstreamIO', // Usually your GitHub org/user name.
-  projectName: 'deepstream.io-website', // Usually your repo name.
+  projectName: 'deepstreamIO.github.io', // Usually your repo name.
+  trailingSlash: false,
+  deploymentBranch: 'gh-pages',
 
   presets: [
     [
@@ -24,13 +26,13 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/deepstreamIO/deepstream.io-website',
+          editUrl: 'https://github.com/deepstreamIO/deepstreamIO.github.io',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/deepstreamIO/deepstream.io-website',
+            'https://github.com/deepstreamIO/deepstreamIO.github.io',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -68,11 +70,23 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Content',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Install',
+                to: '/docs/tutorials/install/linux/',
+              },
+              {
+                label: 'Tutorials',
+                to: '/docs/tutorials/concepts/what-is-deepstream',
+              },
+              {
+                label: 'Documentation',
+                to: '/docs/docs/server/command-line-interface',
+              },
+              {
+                label: 'Blog',
+                to: '/blog',
               },
             ],
           },
@@ -80,34 +94,26 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
+                label: 'Discussions',
+                href: 'https://github.com/deepstreamIO/deepstreamIO.github.io/discussions',
+              }
             ],
           },
           {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'Server changelog',
+                href: 'https://github.com/deepstreamIO/deepstream.io/blob/master/CHANGELOG.md',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
+                label: 'Client changelog',
+                href: 'https://github.com/deepstreamIO/deepstream.io-client-js/blob/master/CHANGELOG.md',
+              }
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} deepstreamHub GmbH and contributors`,
       },
       prism: {
         theme: lightCodeTheme,

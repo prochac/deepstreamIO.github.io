@@ -1,5 +1,5 @@
 ---
-title: "Realtime Search" 
+title: "Realtime Search"
 description: The Realtime Search Evolution
 blogImage: /images/elton/elton-professor.png
 ---
@@ -52,12 +52,12 @@ setInterval (() => {
 }, 1000)
 ```
 
-If you want to make your application update without having to refresh, you can just rerequest the data, either when a user 
+If you want to make your application update without having to refresh, you can just rerequest the data, either when a user
 performs a refresh action or on a set interval.
 
 ### Push Notifications / Events
 
-Once you have an application that can load data-dynamically, you can go one step further and add an extremely simple push layer to allow your application to be told whenever data needs to be refreshed. This allows you to continue using all the benefits of a normal HTTP application (scalability and so forth) while also getting told when to update to 
+Once you have an application that can load data-dynamically, you can go one step further and add an extremely simple push layer to allow your application to be told whenever data needs to be refreshed. This allows you to continue using all the benefits of a normal HTTP application (scalability and so forth) while also getting told when to update to
 provide quicker updates to the end user and ideally reduce the amount of polling.
 
 Service:
@@ -121,7 +121,7 @@ doSomethingWithData(results)
 ```
 
 This means we now have the ability to subscribe to a specific query event and just receive updates. The advantage
-of this is that if you have a thousand users connected, the query is still only run once and the result is sent to 
+of this is that if you have a thousand users connected, the query is still only run once and the result is sent to
 all of them, which makes it much more efficient. The disadvantages so far is the static nature of the event means we can't really do our own custom queries, and that we have to do the event initially which means we have to maintain two different types of APIs. Not cool.
 
 ### Dynamic Result Notifications
@@ -155,7 +155,7 @@ server.post('/start-search', async (req, res) => {
         })
     }
 
-    // Setup the cursor 
+    // Setup the cursor
     const cursor = database.table(req.body.table).on('change', await () => {
         const results = await doQuery(req.body.query)
         if (!deepEquals(search.previousResults, results)) {
@@ -171,12 +171,12 @@ server.post('/start-search', async (req, res) => {
         cursor
     })
 
-    // Do the actual initial search to avoid it having to be done on the 
+    // Do the actual initial search to avoid it having to be done on the
     // client side
     const results = await doQuery()
 
     // Send the response
-    res.send({ 
+    res.send({
         reference: search.reference,
         data: results
     })
@@ -214,7 +214,7 @@ Okay so that's alot of code. Probably a good place to stop before writing an act
 #### Pros
 
 - Minimal amount of cursors open
-- Basic lifecycle support means that if the clients always cleaned up after themselves system can go back to 
+- Basic lifecycle support means that if the clients always cleaned up after themselves system can go back to
 original state
 - We can proxy multiple realtime search queries easily. Not very useful for infinite permutations (like text searches) but if your search is limited or you have built in default searches (like pagination or limits) it would scale well
 
@@ -222,7 +222,7 @@ original state
 
 - If you want to scale you'll need to attach to a third party cache/database (the norm nowadays for distributed/scaling systems)
 - You can call start-search / end-search multiple times and it would get the state out of sync
-- Most importantly, since its not really tied into the session if your connection drops or you force close your client 
+- Most importantly, since its not really tied into the session if your connection drops or you force close your client
 state is incorrect
 
 ### Dynamic Result Notifications Using Deepstream
@@ -244,7 +244,7 @@ deepstream.rpc.provide('realtime_search', async (data, response) => {
 deepstream.record.listen('realtime_search/list_.*', async (name, response) => {
     const hash = /realtime_search\/list_(.*)/.match(name)[0]
     const data = await deepstream.record.snapshot(hash)
-    
+
     const cursor = database.table(data.table).on('change', async () => {
         const results = await doQuery(data.query)
         const previousResults = await deepstream.record.snapshot(name)
@@ -327,8 +327,8 @@ And then on the client side you would just need to do the same thing we mentione
 Client:
 `embed:server/realtime-search/example/realtime-search-client.js`
 
-And that's it! As you can see getting realtime-results couldn't be easier. 
+And that's it! As you can see getting realtime-results couldn't be easier.
 
-For a front-end example, more config options and permissions please checkout the [realtime-search guide](/guides/realtime-search/intro/). 
+For a front-end example, more config options and permissions please checkout the [realtime-search guide](../docs/20-guides/realtime-search/00-intro.md).
 
 Thanks for reading!

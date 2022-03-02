@@ -7,7 +7,7 @@ The next step is to create a deepstream client, login and initialize the applica
 
 ## Setting up Authentication on the backend
 
-In this guide we be using Storage Authentication, feel free to refer the [Authentication](/docs/general/authentication/) page to try out other types of authentication or look at some of the alternative different guides.
+In this guide we be using Storage Authentication, feel free to refer the [Authentication](../../tutorials/core/auth/auth-introduction) page to try out other types of authentication or look at some of the alternative different guides.
 
 In order to use Storage Authentication please enable the following auth module in your server config
 
@@ -65,7 +65,7 @@ async () => {
 }
 ```
 
-Here we are logging in using the attributed required by [storage authentication](/tutorials/core/auth/storage/), which is the username and password. This will inform deepstream to lookup a user with the provided username, and if it exists to check the password is valid. If the user doesn't exist since we have `createUser` enabled, it will hash the password and create a new user for us.
+Here we are logging in using the attributed required by [storage authentication](../../tutorials/core/auth/storage/), which is the username and password. This will inform deepstream to lookup a user with the provided username, and if it exists to check the password is valid. If the user doesn't exist since we have `createUser` enabled, it will hash the password and create a new user for us.
 
 Within the database, the user structure will be as follows:
 

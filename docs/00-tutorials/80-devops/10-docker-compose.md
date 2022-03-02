@@ -5,7 +5,7 @@ redirectFrom: [/install/docker-compose/]
 logoImage: compose.png
 ---
 
-Get more details about Docker in general and about the deepstream standalone Docker in the [Docker&nbsp;image&nbsp;tutorial](/tutorials/install/docker/)
+Get more details about Docker in general and about the deepstream standalone Docker in the [Docker&nbsp;image&nbsp;tutorial](../install/docker)
 
 ### What is Docker Compose?
 

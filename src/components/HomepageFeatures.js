@@ -4,35 +4,59 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Security',
+    Svg: require('../../static/img/cloud-data-secure-defense-svgrepo-com.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+      Authenticate, audit and permission everything from the user down to each message
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Records',
+    Svg: require('../../static/img/connection-data-document-svgrepo-com.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Interactive JSON documents that can be edited and observed. Changes are persisted and synced across clients and saved in cache/storage.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
+    title: 'Events',
+    Svg: require('../../static/img/big-data-connection-network-svgrepo-com.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Many clients can subscribe to topics and receive data whenever other clients publish it to the same topic.
       </>
     ),
   },
+  {
+    title: 'RPCs',
+    Svg: require('../../static/img/computing-data-transfer-laptop-svgrepo-com.svg').default,
+    description: (
+      <>
+        Clients can register functions to be called by other clients. deepstream will smartly route requests and responses.
+      </>
+    ),
+  },
+  {
+    title: 'Presence',
+    Svg: require('../../static/img/archive-big-data-document-svgrepo-com.svg').default,
+    description: (
+      <>
+        Query deepstream for online users and subscribe to login/logout events
+      </>
+    ),
+  },
+  {
+    title: 'Listening',
+    Svg: require('../../static/img/big-data-efficiency-speedometer-svgrepo-com.svg').default,
+    description: (
+      <>
+      Let your services be told whenever a new topic is subscribed to, letting you serve realtime data on demand
+      </>
+    ),
+  }
 ];
 
 function Feature({Svg, title, description}) {

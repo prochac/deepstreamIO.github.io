@@ -31,5 +31,5 @@ This process is called "Interactive Connectivity Establishment" or ICE for short
 
 For this guide we'll be using [deepstream](https://deepstream.io/) as a signalling platform as well as a way to keep state (e.g. lists of users in a room) and some of the [numerous public STUN and TURN servers](https://gist.github.com/sagivo/3a4b2f2c7ac6e1b5267c2f1f59ac6c6b).
 
-Alright, time to get started with our first usecase: [Establishing a WebRTC connection between two browsers](../webrtc-datachannels).
+Alright, time to get started with our first usecase: [Establishing a WebRTC connection between two browsers](webrtc-datachannels).
 
