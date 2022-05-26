@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://deepstreamIO.github.io/blog</id>
+    <title>DeepstreamIO Blog</title>
+    <updated>2019-11-04T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://deepstreamIO.github.io/blog"/>
+    <subtitle>DeepstreamIO Blog</subtitle>
+    <icon>https://deepstreamIO.github.io/img/eltons/elton-hive.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[Realtime Search]]></title>
+        <id>/2019/11/04/realtime-search</id>
+        <link href="https://deepstreamIO.github.io/blog/2019/11/04/realtime-search"/>
+        <updated>2019-11-04T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[The Realtime Search Evolution]]></summary>
+        <content type="html"><![CDATA[<p>Realtime Search is one of the most powerful realtime concepts out there, and have been slowly been finding themselves in modern applications, regardless of the underlying technology backing it.</p><p>We are proud to announce a new realtime-search process that runs next to deepstream, allowing users to create realtime functionality with barely any code, and with an extensible plugin architecture to support more databases in the future!</p><p>We&#x27;ll begin our journey from a static HTTP request and end with the functionality provided
+by deepstream and the realtime-search component. You can also skip to the <a href="#realtime-search-finally">last section</a> if this is just too long!</p><h3>Important</h3><p>The code presented in these examples is pseudo code which I haven&#x27;t run, and have some helper functions
+to minimize eye strain</p><ul><li><code>doQuery</code></li></ul><p>Is what you would call to run a single query against your database, which would return the results as an array</p><ul><li><code>makeRequest</code></li></ul><p>Is what you would call to make a HTTP request in your application, like a GET or POST</p><ul><li><code>doSomethingWithData</code></li></ul><p>What your application would call once your data is loaded</p><ul><li><code>database.table(&#x27;users&#x27;).on</code></li></ul><p>Is similar to mongodb changefeeds, which tells you whenever a table has been updated</p><h3>HTTP Requests</h3><p>The most common technique is to perform a search is a HTTP GET with search parameters / POST with a body. It scales amazingly well with any deployment platform out there, caches results and just works.</p><p>Service:</p><pre><code class="language-javascript">server.on(&#x27;/search&#x27;, async (req, res) =&gt; {
+    const results = await doQuery(req)
+    res.send(results)
+})
+</code></pre><p>Client:</p><pre><code class="language-javascript">setInterval (() =&gt; {
+    const result = await makeRequest(&#x27;/search&#x27;)
+    doSomethingWithData(result)
+}, 1000)
+</code></pre><p>If you want to make your application update without having to refresh, you can just rerequest the data, either when a user
+performs a refresh action or on a set interval.</p><h3>Push Notifications / Events</h3><p>Once you have an application that can load data-dynamically, you can go one step further and add an extremely simple push layer to allow your application to be told whenever data needs to be refreshed. This allows you to continue using all the benefits of a normal HTTP application (scalability and so forth) while also getting told when to update to
+provide quicker updates to the end user and ideally reduce the amount of polling.</p><p>Service:</p><pre><code class="language-javascript">server.on(&#x27;/search&#x27;, async (req, res) =&gt; {
+    const results = await doQuery()
+    res.send(results)
+})
+
+// Emit an event whenever the client changes (pseduo code based on changelogs)
+database.table(&#x27;users&#x27;).on(&#x27;change&#x27;, () =&gt; {
+  deepstream.event.emit(&#x27;users-changed&#x27;)
+})
+</code></pre><p>Client:</p><pre><code class="language-javascript">// Subscribe to the event on the client and redo query
+deepstream.event.subscribe(&#x27;users-changed&#x27;, doSomethingWithData)
+// Do query initially to get results
+const results = await makeRequest(&#x27;/search&#x27;)
+doSomethingWithData(results)
+</code></pre><p>Pretty useful right? This means our users no longer have to request data manually, wait for a certain timeout, extensively  poll your systems (which does get a little expensive with large deployments and cloud providers) and you can still lean back on using your normal HTTP stack for development.</p><h3>Static Result Notifications</h3><p>Blindly getting told that a table changed however is still an extremely coarse action, specially the larger your table gets. You would most likely want to add some form of smarter caching so that users only get told if they really care about something.</p><p>Luckily if you have static application queries this is actually quite easy!</p><p>Service:</p><pre><code class="language-javascript">server.on(&#x27;/static-search&#x27;, async (req, res) =&gt; {
+    const results = await doQuery()
+    res.send(results)
+})
+
+// Emit an event whenever the client changes (pseduo code based on changelogs)
+const specificQueryUpdates = () =&gt; {
+    let previousResults
+    database.table(&#x27;users&#x27;).on(&#x27;change&#x27;, await () =&gt; {
+        const results = await doQuery()
+        if (!deepEquals(previousResults, results)) {
+            deepstream.event.emit(&#x27;specific-query-changed&#x27;, results)
+        }
+        previousResults = results
+    })
+}
+</code></pre><p>Client:</p><pre><code class="language-javascript">// Subscribe to an event on the client
+deepstream.event.subscribe(&#x27;specific-query-changed&#x27;, doSomethingWithData)
+// We still need to get the data initially though, as events are only triggered
+// on changes
+const results = await makeRequest(&#x27;/static-search&#x27;)
+doSomethingWithData(results)
+</code></pre><p>This means we now have the ability to subscribe to a specific query event and just receive updates. The advantage
+of this is that if you have a thousand users connected, the query is still only run once and the result is sent to
+all of them, which makes it much more efficient. The disadvantages so far is the static nature of the event means we can&#x27;t really do our own custom queries, and that we have to do the event initially which means we have to maintain two different types of APIs. Not cool.</p><h3>Dynamic Result Notifications</h3><p>So how can we let the backend know to setup an endpoint for a custom query, maintain it
+during the queries lifetime and then when it&#x27;s no longer needed discard it? 🤔 There are different solutions, but the one we see most often is:</p><ul><li>Request a query by telling the client to start</li><li>Get updates</li><li>Discard it when your done</li></ul><p>In a classical event system this would usually be done as follows (for this example you need to have sticky sessions available in order for the close event to go the same process as the open one)</p><p>Service:</p><pre><code class="language-javascript">const searches = new Map()
+
+server.post(&#x27;/start-search&#x27;, async (req, res) =&gt; {
+    // Hash the query so that you can use it as a lookup key
+    const searchReference = hashSearch(req.body)
+    let search = searches.has(searchReference)
+
+    // If the query already exists, someone already started it, so
+    // bump up the usage number and return the last results
+    if (searches.has(searchReference)) {
+        const search = searches.get(searchReference)
+        search.usage = search.usage + 1
+        return res.send({
+            reference: search.reference,
+            data: search.previousResult
+        })
+    }
+
+    // Setup the cursor
+    const cursor = database.table(req.body.table).on(&#x27;change&#x27;, await () =&gt; {
+        const results = await doQuery(req.body.query)
+        if (!deepEquals(search.previousResults, results)) {
+            deepstream.event.emit(searchReference, results)
+        }
+        search.previousResults = results
+    })
+
+    // Set the search so new requests won&#x27;t setup another cursor
+    searches.set(searchReference, {
+        usage: 1,
+        reference: searchReference,
+        cursor
+    })
+
+    // Do the actual initial search to avoid it having to be done on the
+    // client side
+    const results = await doQuery()
+
+    // Send the response
+    res.send({
+        reference: search.reference,
+        data: results
+    })
+})
+
+server.post(&#x27;/stop-search&#x27;, async (req, res) =&gt; {
+    const { reference } = req.body
+    const search = searches.get(references)
+    if (search) {
+        search.usages = search.usages - 1
+        if (search.usages === 0) {
+            searches.del(reference)
+            search.cursor.stop()
+        }
+        return res.end()
+    }
+    res.status(400).end()
+})
+</code></pre><p>Client:</p><pre><code class="language-javascript">// Creating the search
+const { reference, data } = makeRequest(&#x27;/start-search&#x27;, { query: [[&#x27;age&#x27;,&#x27;gt&#x27;, &#x27;20&#x27;]], table: &#x27;users&#x27; })
+deepstream.event.subscribe(reference, doSomethingWithData)
+doSomethingWithData(data)
+
+// Ending the search
+deepstream.event.unsubscribe(reference)
+makeRequest(&#x27;/stop-search&#x27;, { reference })
+</code></pre><p>Okay so that&#x27;s alot of code. Probably a good place to stop before writing an actual service. Let us break down the pros and cons of this approach (ignoring potential bugs due to pseudo nature!):</p><h4>Pros</h4><ul><li>Minimal amount of cursors open</li><li>Basic lifecycle support means that if the clients always cleaned up after themselves system can go back to
+original state</li><li>We can proxy multiple realtime search queries easily. Not very useful for infinite permutations (like text searches) but if your search is limited or you have built in default searches (like pagination or limits) it would scale well</li></ul><h4>Cons</h4><ul><li>If you want to scale you&#x27;ll need to attach to a third party cache/database (the norm nowadays for distributed/scaling systems)</li><li>You can call start-search / end-search multiple times and it would get the state out of sync</li><li>Most importantly, since its not really tied into the session if your connection drops or you force close your client
+state is incorrect</li></ul><h3>Dynamic Result Notifications Using Deepstream</h3><p>Right so now we are going to rewrite the above code using deepstream APIs. I&#x27;ll be using <code>listening</code>, a powerful API that allows deepstream to notify clients/services whenever a subscription has been added or removed to the system, which removes most of the boiler plate management. I&#x27;ll also be using RPCs and Records, mainly because it removes us having to use HTTP and automatically saves things in the cache. It&#x27;s also 95% of the way to explaining how the realtime-search was built.</p><p>Service:</p><pre><code class="language-javascript">deepstream.rpc.provide(&#x27;realtime_search&#x27;, async (data, response) =&gt; {
+    const hash = hashSearch(data)
+    try {
+        await deepstream.record.set(hash, data)
+        response.send()
+    } catch (e) {
+        response.error(&#x27;Error creating a hash&#x27;)
+    }
+})
+
+deepstream.record.listen(&#x27;realtime_search/list_.*&#x27;, async (name, response) =&gt; {
+    const hash = /realtime_search\/list_(.*)/.match(name)[0]
+    const data = await deepstream.record.snapshot(hash)
+
+    const cursor = database.table(data.table).on(&#x27;change&#x27;, async () =&gt; {
+        const results = await doQuery(data.query)
+        const previousResults = await deepstream.record.snapshot(name)
+        if (!deepEquals(previousResults, results)) {
+            deepstream.record.setData(name, results)
+        }
+    })
+
+    const results = await doQuery()
+    deepstream.record.setData(name, results)
+
+    response.onStop(() =&gt; cursor.stop())
+    response.accept()
+})
+</code></pre><p>Client:</p><pre><code class="language-javascript">// Creating the search
+const hash = await client.rpc.make(&#x27;realtime_search&#x27;, { query: [[&#x27;age&#x27;,&#x27;gt&#x27;, &#x27;20&#x27;]], table: &#x27;users&#x27; })
+const record = client.record.getRecord(`realtime_search/list_${hash}`)
+record.subscribe((results) =&gt; {
+    // do something with results
+}, true)
+
+// Ending the search
+record.discard()
+</code></pre><p>Let us see what cons this managed to resolve:</p><ul><li>Scaling</li></ul><p>Listening on deepstream uses an active publisher pattern. This means only one service in a cluster can ever
+be responsible for a subscription. This means you can scale your services and servers and the load will automatically be
+distributed against them.</p><ul><li>Cache/Storage</li></ul><p>Using deepstream records we automatically have our data saved to cache. This means by using it we get the benefit
+of distributed state out of the box, so if another user subscribes to the same record the micro service won&#x27;t even need to be told about it</p><ul><li>State</li></ul><p>All the connection state and logic is handled by deepstream, which means if your client goes down, deepstream will
+clean up all your subscriptions on your behalf. This allows the platform to continue running optimally. So state getting out of sync isn&#x27;t your concern</p><p><em>Hint</em></p><p>The listen pattern can be used for so much more than just this usecase!</p><h3>Realtime Search, Finally!</h3><p>Okay I really hope you made it this far! Let&#x27;s look at how realtime-search APIs work.</p><p>On the server we don&#x27;t need to actually write any server code, you just have to run the realtime-search service. You can run it via docker <a href="https://hub.docker.com/r/deepstreamio/realtime-search">deepstreamio/realtime-search</a>, but it&#x27;s also shipped via node under the <a href="https://www.npmjs.com/package/@deepstream/realtime-search">@deepstream/realtime-search</a> package.</p><p>We will be following the <a href="https://github.com/deepstreamIO/deepstream.io-realtime-search/tree/master/example">example found in the github repo</a>. This will use docker compose, which is useful as we need to setup a mongodb replica as well as run deepstream and the realtime-search service for us.</p><pre><code class="language-bash">git clone https://github.com/deepstreamIO/deepstream.io-realtime-search.git
+cd deepstream.io-realtime-search/example
+docker-compose up
+</code></pre><p>Giving us the output:</p><pre><code class="language-bash">11:53:13 AM | Initializing MongoDB Connection
+11:53:13 AM | Connected successfully to mongodb database deepstream
+11:53:13 AM | Initializing Deepstream connection
+11:53:13 AM | Successfully logged in to deepstream
+11:53:13 AM | Providing rpc method &quot;realtime_search&quot;
+11:53:13 AM | listening for realtime_search/list_.*
+11:53:13 AM | realtime search provider ready
+</code></pre><p>And then on the client side you would just need to do the same thing we mentioned earlier:</p><p>Client:
+<code>embed:server/realtime-search/example/realtime-search-client.js</code></p><p>And that&#x27;s it! As you can see getting realtime-results couldn&#x27;t be easier.</p><p>For a front-end example, more config options and permissions please checkout the <a href="../docs/20-guides/realtime-search/00-intro.md">realtime-search guide</a>.</p><p>Thanks for reading!</p>]]></content>
+    </entry>
+</feed>
