@@ -53,7 +53,7 @@ const config = {
         items: [
           {to: '/docs/tutorials/concepts/what-is-deepstream', label: 'Tutorials', position: 'left'},
           {
-            to: 'docs/docs/server/command-line-interface',
+            to: 'docs/docs',
             position: 'left',
             label: 'Docs',
           },
@@ -82,7 +82,7 @@ const config = {
               },
               {
                 label: 'Documentation',
-                to: '/docs/docs/server/command-line-interface',
+                to: '/docs/docs',
               },
               {
                 label: 'Blog',
