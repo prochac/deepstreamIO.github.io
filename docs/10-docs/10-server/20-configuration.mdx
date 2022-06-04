@@ -301,6 +301,11 @@ _Default_: `0`
       # allow 'authData' parameter in POST requests, if disabled only token and OPEN auth is
       # possible
       allowAuthData: true
+      # enable the authentication endpoint for requesting userData and/or tokens
+      # note: a custom authentication handler is required for token generation
+      enableAuthEndpoint: false
+      # path for authentication requests
+      authPath: /api/auth
       # path for POST requests
       postPath: /api
       # path for GET requests
