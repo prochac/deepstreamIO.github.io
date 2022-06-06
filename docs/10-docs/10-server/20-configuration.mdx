@@ -67,6 +67,8 @@ _Default_: `true`
 The logLevel to use across the application. Sets at what level and above the server should log messages. Valid levels are `DEBUG`, `INFO`,
 `WARN`, `ERROR`, and `OFF`.
 
+This value can be overwritten in the logger plugin options.
+
 _Default_: INFO
 
 ### dependencyInitializationTimeout
@@ -375,6 +377,10 @@ Sets whether the server's logs should output in color. This will look great in a
 leave color markers in log files if you redirect the output into a file.
 
 _Default_: `true`
+
+### logLevel
+
+If defined overwrites the general configuration logLevel value.
 
 ## Authentication
 
