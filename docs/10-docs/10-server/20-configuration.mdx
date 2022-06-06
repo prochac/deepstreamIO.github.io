@@ -110,14 +110,14 @@ Sets how long deepstream will wait for RPCs to complete before sending a respons
 _Default_:`10000`
 
 ### provideRequestorName
-Send requestorName by default.
+Send the rpc requestor userId by default to every rpc provider: `{ requestorName: string }`
 
-_Default_:`true`
+_Default_:`false`
 
 ### provideRequestorData
-Send requestorData by default.
+Send the rpc requestor client data to every rpc provider: `{ requestorData: object }`
 
-_Default_:`true`
+_Default_:`false`
 
 ## Record Configuration
 

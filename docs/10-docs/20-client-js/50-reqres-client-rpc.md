@@ -7,12 +7,13 @@ RPCs (Remote Procedure Calls, sometimes also referred to as Remote Method Invoca
 
 ## Methods
 
-### client.rpc.provide( name, callback )
+### client.rpc.provide( name, callback, requestorDetails )
 
 |Argument|Type|Optional|Description|
 |---|---|---|---|
 |name|String|false|The name of the RPC. Each client can only register as a provider for an RPC name once.|
 |callback|Function|false|A function that handles incoming RPCs. Will be called with data and an [RPC response object](reqres-response).|
+|requestorDetails|object|true| Object containing requestorDetails if enabled in server configuration.|
 
 Registers the client as a provider for incoming RPCs of a specific name. The callback will be invoked when another client calls `client.rpc.make()`.
 
@@ -27,6 +28,26 @@ client.rpc.provide( 'add-two-numbers', function( data, response ){
 - Data can be any serializable object
 - Documentation for the `response` object can be found [here](reqres-response)
 :::
+
+#### requestorDetails
+
+Starting deepstream client v6.0.2 a third argument will be passed along the provider callback containing the requestor data object: ` { requestorName? : string, requestorData?: object }` if the feauture is enabled on the deepstream server [config options](../server/configuration#providerequestorname)
+
+```javascript
+client.rpc.provide( 'add-two-numbers', function( data, response, requestorDetails ){
+    // retrieve requestor userId
+    const userId = requestorDetails.requestorName
+    // retrieve requestor client data
+    const clientData = requestorDetails.requestorData
+    // Example: this instance will respond only to requestors whose clientData has the cool property
+    if (clientData && clientData.cool) {
+        response.send( data.numA + data.numB );
+    } else {
+        response.reject()
+    }
+});
+```
+
 
 ### client.rpc.unprovide( name )
 
