@@ -29,7 +29,7 @@ Create an _index.html_ file and add the following to it, making sure to point to
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://cdn.deepstream.io/js/client/latest/ds.min.js"></script>
+    <script src="https://unpkg.com/@deepstream/client/dist/bundle/ds.min.js"></script>
   </head>
   <body>
     <input type="text" />
