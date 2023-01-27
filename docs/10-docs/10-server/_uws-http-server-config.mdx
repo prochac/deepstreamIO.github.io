@@ -14,6 +14,9 @@ httpServer:
       - 'https://example.com'
     # maximum allowed size of a POST request body, in bytes, defaults to 1 MB
     maxMessageSize: 1048576
+    # Maximum length of allowed backpressure per socket when publishing or sending messages.
+    # Slow receivers with too high backpressure will be skipped until they catch up or timeout. Defaults to 1024 * 1024.
+    maxBackpressure: 1024*1024
     # Headers to copy over from websocket
     headers:
       - user-agent

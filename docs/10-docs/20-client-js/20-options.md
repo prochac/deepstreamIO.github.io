@@ -69,9 +69,14 @@ _Type_: Number<br/>
 _Default_: `5000`
 
 ### offlineEnabled
-Enable offline record support using indexdb to store data client side.
+Enable offline record support using indexdb or localstorage to store data client side.
 _Type_: Boolean<br/>
 _Default_: `false`
+
+### storageName
+Set client side offline storage engine, options are `indexdb` and `localstorage`. Localstorage in node requires installing node-localstorage or equivalent API
+_Type_: String<br/>
+_Default_: `indexdb`
 
 ### More
 
