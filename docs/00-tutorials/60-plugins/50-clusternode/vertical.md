@@ -42,3 +42,5 @@ if (cluster.isPrimary) {
   console.log(`Worker ${process.pid} started`)
 }
 ```
+
+Or just use the deepstream CLI command [`./deepstream cluster`](/docs/docs/server/command-line-interface#deepstream-cluster)

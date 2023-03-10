@@ -1,10 +1,6 @@
 ---
 title: HTTP and Log Monitoring
-description: Learn how to use monitor deepstream using http or logs
-logoImage: http.png
 ---
-
-Deepstream allows you to gather detailed insights into what the server is actually doing. How detailed is really up to you, since you can aggregate data by topic, action or actually go far enough to log each individual subscription name, user, message, anything that goes through the system in one place thus giving complete observability and auditing capabilities.
 
 With most users in production we realized the sweet spot in metrics in the following structure:
 
@@ -72,7 +68,7 @@ This provides us good insight into what the server is actually doing, but doesn'
 
 Usually by using a poll agent like logstash, this takes the json object, transforms it slightly to add some useful meta data and then sends it off to elasticsearch to visualise via Kibana.
 
-Deesptream has two prebuilt services for monitoring.
+Deesptream has two prebuilt services for monitoring that can be enabled separately or at the same time:
 
 ### Http monitoring
 
@@ -81,13 +77,13 @@ Authentication can be open or setting a `key:value` in the request header.
 
 ```yaml
 monitoring:
-  type: http
-  # the endpoint url
-  url: /monitoring
-  headerKey: string
-  headerValue: string
-  # for dev purposes in order to skip authentication
-  allowOpenPermissions: false
+  - type: http
+      # the endpoint url
+      url: /monitoring
+      headerKey: string
+      headerValue: string
+      # for dev purposes in order to skip authentication
+      allowOpenPermissions: false
 
 ```
 
@@ -97,9 +93,9 @@ Logs the monitoring metrics to be retrieved by a log transport every `logInterva
 
 ```yaml
 monitoring:
-  type: log
-  # milliseconds
-  logInterval: number
-  # log key for metrics, defaults to 'DEEPSTREAM_MONITORING'
-  monitoringKey: string
+  - type: log
+      # milliseconds
+      logInterval: number
+      # log key for metrics, defaults to 'DEEPSTREAM_MONITORING'
+      monitoringKey: string
 ```

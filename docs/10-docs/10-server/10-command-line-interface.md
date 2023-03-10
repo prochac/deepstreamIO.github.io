@@ -27,11 +27,11 @@ will print out all available commands:
   Commands:
 
     start [options]            start a deepstream server
-    daemon [options]           start a deepstream daemon that will auto-restart on failures
-    service [options] [add|remove|start|stop]  Add, remove, start or stop deepstream as a
-                               service to your operating system
     info [options]             print meta information about build and runtime
     hash [options] [password]  Generate a hash from a plain text password using file auth configuration settings
+    service [options] [add|remove|start|stop]  Add, remove, start or stop deepstream as a service to your operating system
+    daemon [options]           start a deepstream daemon that will auto-restart on failures
+    cluster [options]           start a vertical cluster of deepstream servers on each processor core
 
   Options:
 
@@ -91,6 +91,17 @@ deepstream damemon --help
 
 This command starts the deepstream server and monitors it for crashes, allowing it to be automatically
 restarted on unexpected exits.
+
+It allows all the same commands as `deepstream start`
+
+
+### deepstream cluster
+
+```bash
+deepstream cluster --help
+```
+
+This command starts a vertical cluster of deepstream servers, i.e. multiple process on the same machine that share state and act as a cluster. Defaults to one process per available core
 
 It allows all the same commands as `deepstream start`
 
