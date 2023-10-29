@@ -145,10 +145,10 @@ presence:
 
 ### Events
 
-[Events](../pubsub/events) can be published and subscribed to. Moreover, a client emitting events may listen to event subscriptions. The actions can be permissioned in the section `events`:
+[Events](../pubsub/events) can be published and subscribed to. Moreover, a client emitting events may listen to event subscriptions. The actions can be permissioned in the section `event`:
 
 ```yaml
-events:
+event:
 	"*":
 		publish: true # client.event.emit()
 		subscribe: true # client.event.subscribe()
